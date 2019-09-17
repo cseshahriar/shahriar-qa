@@ -10693,3 +10693,8 @@ hr {
   color: #ffffff;
 }
 
+form.form-delete {
+  display: inline;
+  margin-top: 10px;
+}
+
