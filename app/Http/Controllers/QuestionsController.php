@@ -48,9 +48,10 @@ class QuestionsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Question $question)
     {
-        //
+        $question->increment('views'); // view count updat
+        return view('questions.show', compact('question'));  
     }
 
     /**
