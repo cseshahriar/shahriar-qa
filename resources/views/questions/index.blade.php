@@ -27,7 +27,7 @@
                                 </div>
 
                                 <div class="status {{ $question->status }}"> 
-                                    <strong>{{ $question->answers }}</strong> {{ str_plural('answer', $question->answers) }} 
+                                    <strong>{{ $question->answers_count }}</strong> {{ str_plural('answer', $question->answers_count) }}  
                                 </div>
 
                                 <div class="view">
@@ -70,7 +70,7 @@
                    @endforeach
                     
                     <div class="mx-auto mt-3">
-                        {{ $questions->links() }}
+                        {{ $questions->links() }} 
                     </div>
                 </div>
             </div>
