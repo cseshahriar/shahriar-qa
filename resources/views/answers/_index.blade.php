@@ -14,16 +14,28 @@
                     <div class="media"> 
                         <!-- voting -->
                         <div class="d-flex flex-column vote-controls">
-                            <a href="#"  title="This answer is userful" class="vote-up">
-                                <i class="fas fa-caret-up fa-3x"></i>  
-                            </a> 
-                            <span class="vote-count">1230</span>
 
-                            <a href="#"  title="This answer is not userful" class="vote-down off"><i class="fas fa-caret-down fa-3x"></i> </a>
+                           <a title="This answer is userful" class="vote-up {{ Auth::guest() ? 'off' : ''}}"
+                                onclick="event.preventDefault();document.getElementById('answer-vote-up-{{$answer->id}}').submit();">
+                                <i class="fas fa-caret-up fa-3x"></i> 
+                            </a>  
+                            <form id="answer-vote-up-{{$answer->id}}" action="{{ url('/answers/'.$answer->id.'/vote') }}" method="POST">    
+                                @csrf  
+                                <input type="hidden" name="vote" value="1"> 
+                            </form>  
+                            <span class="vote-count">{{ $answer->votes_count }}</span>  
 
+                            <a title="This answer is not userful" class="vote-down {{ Auth::guest() ? 'off' : ''}}"
+                                onclick="event.preventDefault();document.getElementById('answer-vote-down-{{$answer->id}}').submit();">
+                                <i class="fas fa-caret-down fa-3x"></i> 
+                            </a>
+                             <form id="answer-vote-down-{{$answer->id}}" action="{{ url('/answers/'.$answer->id.'/vote') }}" method="POST">     
+                                @csrf 
+                                <input type="hidden" name="vote" value="-1"> 
+                            </form>  
                             <!-- best answer  -->
-                            @can('accept', $answer)
-                            <a href="#"  title="Mark this answer as best answer" 
+                            @can('accept', $answer) 
+                            <a title="Mark this answer as best answer" 
                                 class="{{ $answer->status }} mt-2"
                                 onclick="event.preventDefault(); document.getElementById('accept-answer-{{ $answer->id}}').submit();" 
                                 >
@@ -35,16 +47,16 @@
                             </form>
                             @else
                                 @if($answer->is_best)
-                                    <a href="#"  title="The question owner accepted this answer as best answer" 
+                                    <a title="The question owner accepted this answer as best answer" 
                                         class="{{ $answer->status }} mt-2">
                                         <i class="fas fa-check fa-2x"></i>  
                                     </a> 
                                 @endif
-                            @endcan   
+                            @endcan    
                         </div>   
 
                         <div class="media-body">
-                            {!! $answer->body_html !!}
+                            {!! $answer->body_html !!} 
                             
                             <div class="row">
                                 <div class="col-4">

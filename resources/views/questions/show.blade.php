@@ -15,7 +15,7 @@
                             </div>
                         </div>
                     </div> 
-                    <hr>
+                    <hr> 
 
                     <div class="media">  
                         <!-- voting -->
